@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 	      resources :bot_details do
 	      	get 'search', on: :collection
 	      end
-	      root to: 'bot_details#index'
+	      # root to: 'bot_details#index'
 	    end
 	  end
 
