@@ -1,0 +1,2 @@
+class BotDetail < ApplicationRecord
+end

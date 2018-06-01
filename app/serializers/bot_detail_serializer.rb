@@ -1,0 +1,3 @@
+class BotDetailSerializer < ActiveModel::Serializer
+  attributes :id, :gps_provider, :RouteId, :vcv_no, :MaterialOutTime, :VehicleNo, :RouteCode, :Origin, :Destination, :CurrentLatLon, :DestLatLon, :DataPingTime, :TransitTime, :PlannedETA, :OriginAddress, :DestAddress, :DurValue, :DurText, :DisValue, :DisText, :LoadingMins, :DisMins, :ActualETA, :DataInsertedTime, :FlagValue, :OrgLat, :OrgLon, :CurrentLat, :CurrentLon, :DestLat, :DestLon, :VehicleHaltFlag, :RouteDeviationFlag, :VehicleHaltMinutes, :ScheduleId, :OnTime, :Delay, :Speed, :NightDrivingFlag, :CreatedDateTime, :ServiceProvideCode, :service_provider_name
+end
