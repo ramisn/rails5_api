@@ -1,9 +1,9 @@
 class CreateBotDetails < ActiveRecord::Migration[5.1]
   def change
     create_table :bot_details do |t|
-      t.string :GpsProvider
+      t.string :gps_provider
       t.string :RouteId
-      t.string :VCV_NO
+      t.string :vcv_no
       t.string :MaterialOutTime
       t.string :VehicleNo
       t.string :RouteCode
@@ -41,7 +41,7 @@ class CreateBotDetails < ActiveRecord::Migration[5.1]
       t.string :NightDrivingFlag
       t.string :CreatedDateTime
       t.string :ServiceProvideCode
-      t.string :ServiceProvideName
+      t.string :service_provider_name
 
       t.timestamps
     end
