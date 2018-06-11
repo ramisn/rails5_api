@@ -10,7 +10,11 @@ class Api::V1::BotDetailsController < ApplicationController
     spn = params[:service_provider_name] if params[:service_provider_name]
     @bot_details = BotDetail.where("service_provider_name like ?", "%#{spn}%") if spn
 
+    @bot_details = BotDetail.where("vcv_no = ? and service_provider_name like ?", params[:vcv_no],"%#{spn}%") if params[:service_provider_name] && params[:vcv_no]
+    cwb = params[:cwb_no] if params[:cwb_no]
+    @bot_details = BotDetail.where("vcv_no = ? and cwb_no like ?", params[:vcv_no],"%#{cwb}%") if params[:cwb_no] && params[:vcv_no]
     render json: @bot_details
+    
   end
 
   # GET /bot_details/1
@@ -62,6 +66,7 @@ class Api::V1::BotDetailsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def bot_detail_params
-      params.require(:bot_detail).permit(:gps_provider, :RouteId, :vcv_no, :MaterialOutTime, :VehicleNo, :RouteCode, :Origin, :Destination, :CurrentLatLon, :DestLatLon, :DataPingTime, :TransitTime, :planned_eta, :OriginAddress, :DestAddress, :DurValue, :DurText, :DisValue, :DisText, :LoadingMins, :DisMins, :actual_eta, :DataInsertedTime, :FlagValue, :OrgLat, :OrgLon, :CurrentLat, :CurrentLon, :DestLat, :DestLon, :VehicleHaltFlag, :RouteDeviationFlag, :VehicleHaltMinutes, :ScheduleId, :OnTime, :Delay, :Speed, :NightDrivingFlag, :CreatedDateTime, :ServiceProvideCode, :service_provider_name)
+      # params.require(:bot_detail).permit(:gps_provider, :RouteId, :vcv_no, :MaterialOutTime, :VehicleNo, :RouteCode, :Origin, :Destination, :CurrentLatLon, :DestLatLon, :DataPingTime, :TransitTime, :planned_eta, :OriginAddress, :DestAddress, :DurValue, :DurText, :DisValue, :DisText, :LoadingMins, :DisMins, :actual_eta, :DataInsertedTime, :FlagValue, :OrgLat, :OrgLon, :CurrentLat, :CurrentLon, :DestLat, :DestLon, :VehicleHaltFlag, :RouteDeviationFlag, :VehicleHaltMinutes, :ScheduleId, :OnTime, :Delay, :Speed, :NightDrivingFlag, :CreatedDateTime, :ServiceProvideCode, :service_provider_name)
+      params.require(:bot_detail).permit(:vcv_no, :vcv_date_time, :gps_provider, :routeid, :routecode, :origin, :destination, :currentlatlon, :destlatlon, :datapingtime, :transittime, :planned_eta, :originaddress, :destaddress, :durvalue, :durtext, :disvalue, :distext, :actual_eta, :orglat, :orglon, :currentlat, :currentlon, :destlat, :destlon, :routedeviationflag, :ontime, :delay, :serviceprovidecode, :service_provider_name, :cwb_no, :cwb_date, :sales_contract, :customer_code, :customer_name, :vehicle_no, :item_code, :generating_loc, :generating_loc_des, :destination_loc, :destination_loc_des, :nature_of_movement, :consignor_name, :consignee_name, :consignor_part_code, :consignee_part_code, :number_of_package)
     end
 end
