@@ -4,17 +4,25 @@ class Api::V1::BotDetailsController < ApplicationController
 
   # GET /bot_details
   def index
-    @bot_details = BotDetail.all
-    @bot_details = BotDetail.where("vcv_no = ?", params[:vcv_no]) if params[:vcv_no]
-    @bot_details = BotDetail.where("gps_provider = ?", params[:gps_provider]) if params[:gps_provider]
-    spn = params[:service_provider_name] if params[:service_provider_name]
-    @bot_details = BotDetail.where("service_provider_name like ?", "%#{spn}%") if spn
+    # @bot_details = BotDetail.all
+    # @bot_details = BotDetail.where("vcv_no = ?", params[:vcv_no]) if params[:vcv_no]
+    # @bot_details = BotDetail.where("gps_provider = ?", params[:gps_provider]) if params[:gps_provider]
+    # spn = params[:service_provider_name] if params[:service_provider_name]
+    # @bot_details = BotDetail.where("service_provider_name like ?", "%#{spn}%") if spn
 
-    @bot_details = BotDetail.where("vcv_no = ? and service_provider_name like ?", params[:vcv_no],"%#{spn}%") if params[:service_provider_name] && params[:vcv_no]
-    cwb = params[:cwb_no] if params[:cwb_no]
-    @bot_details = BotDetail.where("vcv_no = ? and cwb_no like ?", params[:vcv_no],"%#{cwb}%") if params[:cwb_no] && params[:vcv_no]
-    render json: @bot_details
+    # @bot_details = BotDetail.where("vcv_no = ? and service_provider_name like ?", params[:vcv_no],"%#{spn}%") if params[:service_provider_name] && params[:vcv_no]
+    # cwb = params[:cwb_no] if params[:cwb_no]
+    # @bot_details = BotDetail.where("vcv_no = ? and cwb_no like ?", params[:vcv_no],"%#{cwb}%") if params[:cwb_no] && params[:vcv_no]
     
+    # cust_name = params[:customer_code] if params[:customer_code]
+    # @bot_details = BotDetail.where("consignor_part_code = ? and customer_code = ?", params[:consignor_part_code],params[:customer_code]) if params[:customer_code] && params[:consignor_part_code]
+    vcv_date = params[:vcv_date_time] if params[:vcv_date_time]
+    @bot_details = BotDetail.where("consignor_part_code = ? and customer_code = ? and vcv_date_time like ?", params[:consignor_part_code],params[:customer_code],"%#{vcv_date}%") if params[:customer_code] && params[:consignor_part_code] && params[:vcv_date_time]
+
+    # @bot_details = BotDetail.select("vcv_no","gps_provider", "routeid", "routecode", "origin", "destination", "currentlatlon", "destlatlon", "planned_eta", "originaddress", "destaddress", "durvalue", "durtext", "disvalue", "distext", "actual_eta", "currentlat", "currentlon","routedeviationflag", "service_provider_name", "sales_contract", "customer_code", "customer_name", "vehicle_no", "generating_loc", "generating_loc_des", "destination_loc", "destination_loc_des", "nature_of_movement", "consignor_name", "consignee_name", "consignor_part_code", "consignee_part_code", "number_of_package").where("consignor_part_code = ? and customer_code = ?", params[:consignor_part_code],params[:customer_code]).group(:vcv_no, :gps_provider, :routeid, :routecode, :origin, :destination, :currentlatlon, :destlatlon, :planned_eta, :originaddress, :destaddress, :durvalue, :durtext, :disvalue, :distext, :actual_eta, :currentlat, :currentlon,:routedeviationflag, :service_provider_name, :sales_contract, :customer_code, :customer_name, :vehicle_no, :generating_loc, :generating_loc_des, :destination_loc, :destination_loc_des, :nature_of_movement, :consignor_name, :consignee_name, :consignor_part_code, :consignee_part_code, :number_of_package) if params[:customer_code] && params[:consignor_part_code]
+    # @bot_details = BotDetail.select("vcv_no","gps_provider", "routeid", "routecode", "origin", "destination", "currentlatlon", "destlatlon", "planned_eta", "originaddress", "destaddress", "durvalue", "durtext", "disvalue", "distext", "actual_eta", "currentlat", "currentlon","routedeviationflag", "service_provider_name", "sales_contract", "customer_code", "customer_name", "vehicle_no", "generating_loc", "generating_loc_des", "destination_loc", "destination_loc_des", "nature_of_movement", "consignor_name", "consignee_name", "consignor_part_code", "consignee_part_code", "number_of_package").where("consignor_part_code = ? and customer_code = ? and vcv_no = ?", params[:consignor_part_code],params[:customer_code],params[:vcv_no]).group(:vcv_no, :gps_provider, :routeid, :routecode, :origin, :destination, :currentlatlon, :destlatlon, :planned_eta, :originaddress, :destaddress, :durvalue, :durtext, :disvalue, :distext, :actual_eta, :currentlat, :currentlon,:routedeviationflag, :service_provider_name, :sales_contract, :customer_code, :customer_name, :vehicle_no, :generating_loc, :generating_loc_des, :destination_loc, :destination_loc_des, :nature_of_movement, :consignor_name, :consignee_name, :consignor_part_code, :consignee_part_code, :number_of_package) if params[:customer_code] && params[:consignor_part_code] && params[:vcv_no]
+    render json: @bot_details
+
   end
 
   # GET /bot_details/1
