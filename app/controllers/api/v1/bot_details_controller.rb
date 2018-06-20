@@ -4,7 +4,7 @@ class Api::V1::BotDetailsController < ApplicationController
 
   # GET /bot_details
   def index
-    # @bot_details = BotDetail.all
+    @bot_details = BotDetail.all
     # @bot_details = BotDetail.where("vcv_no = ?", params[:vcv_no]) if params[:vcv_no]
     # @bot_details = BotDetail.where("gps_provider = ?", params[:gps_provider]) if params[:gps_provider]
     # spn = params[:service_provider_name] if params[:service_provider_name]
