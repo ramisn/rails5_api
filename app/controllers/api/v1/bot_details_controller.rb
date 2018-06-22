@@ -14,8 +14,8 @@ class Api::V1::BotDetailsController < ApplicationController
     # cwb = params[:cwb_no] if params[:cwb_no]
     # @bot_details = BotDetail.where("vcv_no = ? and cwb_no like ?", params[:vcv_no],"%#{cwb}%") if params[:cwb_no] && params[:vcv_no]
     
-    # cust_name = params[:customer_code] if params[:customer_code]
-    # @bot_details = BotDetail.where("consignor_part_code = ? and customer_code = ?", params[:consignor_part_code],params[:customer_code]) if params[:customer_code] && params[:consignor_part_code]
+    cust_name = params[:customer_code] if params[:customer_code]
+    @bot_details = BotDetail.where("customer_code = ?",params[:customer_code]) if params[:customer_code]
     vcv_date = params[:vcv_date_time] if params[:vcv_date_time]
     @bot_details = BotDetail.where("consignor_part_code = ? and customer_code = ? and vcv_date_time like ?", params[:consignor_part_code],params[:customer_code],"%#{vcv_date}%") if params[:customer_code] && params[:consignor_part_code] && params[:vcv_date_time]
     cwb = params[:cwb_no] if params[:cwb_no]
